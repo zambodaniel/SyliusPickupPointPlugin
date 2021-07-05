@@ -7,6 +7,7 @@
         <service id="setono_sylius_pickup_point.provider.gls"
                  class="Setono\SyliusPickupPointPlugin\Provider\GlsProvider">
             <argument type="service" id="setono_gls_webservice.client"/>
+            <argument type="service" id="setono_sylius_pickup_point.factory.pickup_point"/>
             <tag name="setono_sylius_pickup_point.provider" code="gls" label="setono_sylius_pickup_point.provider.gls"/>
         </service>
     </services>

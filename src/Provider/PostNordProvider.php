@@ -8,10 +8,11 @@ use function preg_replace;
 use Psr\Http\Client\NetworkExceptionInterface;
 use Setono\PostNord\Client\ClientInterface;
 use Setono\SyliusPickupPointPlugin\Exception\TimeoutException;
-use Setono\SyliusPickupPointPlugin\Model\PickupPoint;
 use Setono\SyliusPickupPointPlugin\Model\PickupPointCode;
 use Setono\SyliusPickupPointPlugin\Model\PickupPointInterface;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Resource\Factory\FactoryInterface;
+use Webmozart\Assert\Assert;
 
 /**
  * @see https://developer.postnord.com/api/docs/location
@@ -20,14 +21,14 @@ final class PostNordProvider extends Provider
 {
     private ClientInterface $client;
 
-    public function __construct(ClientInterface $client)
+    private FactoryInterface $pickupPointFactory;
+
+    public function __construct(ClientInterface $client, FactoryInterface $pickupPointFactory)
     {
         $this->client = $client;
+        $this->pickupPointFactory = $pickupPointFactory;
     }
 
-    /**
-     * @return PickupPoint[]
-     */
     public function findPickupPoints(OrderInterface $order): iterable
     {
         $shippingAddress = $order->getShippingAddress();
@@ -117,7 +118,7 @@ final class PostNordProvider extends Provider
         return 'PostNord';
     }
 
-    private function transform(array $servicePoint): PickupPoint
+    private function transform(array $servicePoint): PickupPointInterface
     {
         $id = new PickupPointCode(
             $servicePoint['servicePointId'],
@@ -141,16 +142,21 @@ final class PostNordProvider extends Provider
             $longitude = (string) $servicePoint['coordinates'][0]['easting'];
         }
 
-        return new PickupPoint(
-            $id,
-            $servicePoint['name'],
-            $address,
-            (string) $servicePoint['visitingAddress']['postalCode'],
-            $servicePoint['visitingAddress']['city'],
-            (string) $servicePoint['visitingAddress']['countryCode'],
-            $latitude,
-            $longitude
-        );
+        /** @var PickupPointInterface|object $pickupPoint */
+        $pickupPoint = $this->pickupPointFactory->createNew();
+
+        Assert::isInstanceOf($pickupPoint, PickupPointInterface::class);
+
+        $pickupPoint->setCode($id);
+        $pickupPoint->setName($servicePoint['name']);
+        $pickupPoint->setAddress($address);
+        $pickupPoint->setZipCode((string) $servicePoint['visitingAddress']['postalCode']);
+        $pickupPoint->setCity($servicePoint['visitingAddress']['city']);
+        $pickupPoint->setCountry((string) $servicePoint['visitingAddress']['countryCode']);
+        $pickupPoint->setLatitude($latitude);
+        $pickupPoint->setLongitude($longitude);
+
+        return $pickupPoint;
     }
 
     private static function isValidServicePoint(array $servicePoint): bool

@@ -10,15 +10,19 @@ use Setono\SyliusPickupPointPlugin\Model\PickupPoint;
 use Setono\SyliusPickupPointPlugin\Model\PickupPointCode;
 use Setono\SyliusPickupPointPlugin\Model\PickupPointInterface;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Resource\Factory\FactoryInterface;
 use Webmozart\Assert\Assert;
 
 final class FakerProvider extends Provider
 {
     private Generator $faker;
 
-    public function __construct()
+    private FactoryInterface $pickupPointFactory;
+
+    public function __construct(FactoryInterface $pickupPointFactory)
     {
         $this->faker = Factory::create();
+        $this->pickupPointFactory = $pickupPointFactory;
     }
 
     public function findPickupPoints(OrderInterface $order): iterable
@@ -65,15 +69,20 @@ final class FakerProvider extends Provider
             $countryCode = $this->faker->countryCode;
         }
 
-        return new PickupPoint(
-            new PickupPointCode($index, $this->getCode(), $countryCode),
-            "Post office #$index",
-            $this->faker->streetAddress,
-            (string) $this->faker->numberBetween(11111, 99999),
-            $this->faker->city,
-            $countryCode,
-            (string) $this->faker->latitude,
-            (string) $this->faker->longitude
-        );
+        /** @var PickupPointInterface|object $pickupPoint */
+        $pickupPoint = $this->pickupPointFactory->createNew();
+
+        Assert::isInstanceOf($pickupPoint, PickupPointInterface::class);
+
+        $pickupPoint->setCode(new PickupPointCode($index, $this->getCode(), $countryCode));
+        $pickupPoint->setName("Post office #$index");
+        $pickupPoint->setAddress($this->faker->streetAddress);
+        $pickupPoint->setZipCode((string) $this->faker->numberBetween(11111, 99999));
+        $pickupPoint->setCity($this->faker->city);
+        $pickupPoint->setCountry($countryCode);
+        $pickupPoint->setLatitude((string) $this->faker->latitude);
+        $pickupPoint->setLongitude((string) $this->faker->longitude);
+
+        return $pickupPoint;
     }
 }
