@@ -1,6 +1,6 @@
 {
     "name": "setono/sylius-pickup-point-plugin",
-    "type": "symfony-bundle",
+    "type": "sylius-plugin",
     "description": "Pickup point plugin for Sylius",
     "keywords": [
         "sylius",
@@ -8,32 +8,33 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3",
-        "sylius/sylius": "^1.3",
+        "php": ">=7.4",
         "symfony/config": "^4.4 || ^5.0",
         "symfony/intl": "^4.4 || ^5.0",
-        "symfony/messenger": "^4.4 || ^5.0",
-        "thecodingmachine/safe": "^1.0"
+        "symfony/messenger": "^4.4 || ^5.0"
     },
     "conflict": {
         "setono/post-nord-php-sdk": "<1.1.3"
     },
     "require-dev": {
-        "kalessil/production-dependencies-guard": "dev-master",
         "kriswallsmith/buzz": "^1.1",
-        "matthiasnoback/symfony-dependency-injection-test": "^4.1",
+        "matthiasnoback/symfony-dependency-injection-test": "^4.2",
         "nyholm/psr7": "^1.3",
-        "phpspec/phpspec": "^6.2",
-        "phpunit/phpunit": "^8.5",
-        "roave/security-advisories": "dev-master",
-        "setono/code-quality-pack": "^1.4.1",
+        "phpspec/phpspec": "^7.0",
+        "phpunit/phpunit": "^9.5",
+        "psalm/plugin-phpunit": "^0.16.1",
+        "psalm/plugin-symfony": "^2.4",
+        "roave/security-advisories": "dev-latest",
+        "setono/code-quality-pack": "^2.1.1",
         "setono/dao-bundle": "^1.0",
         "setono/gls-webservice-bundle": "^1.0.1",
         "setono/post-nord-bundle": "^1.1",
         "setono/sylius-behat-pack": "^0.1.0",
+        "sylius/sylius": "~1.7.0",
         "symfony/debug-bundle": "^5.1",
         "symfony/dotenv": "^5.1",
-        "symfony/web-profiler-bundle": "^5.0"
+        "symfony/web-profiler-bundle": "^5.0",
+        "weirdan/doctrine-psalm-plugin": "^1.0"
     },
     "suggest": {
         "setono/dao-bundle": "Install this bundle to use the DAO provider",
@@ -63,18 +64,22 @@
     },
     "prefer-stable": true,
     "scripts": {
-        "analyse": "vendor/bin/phpstan analyse -c phpstan.neon -l max src/ tests/Application/Model",
+        "analyse": [
+            "@ensure-test-container-exists",
+            "psalm"
+        ],
         "behat": "php -d memory_limit=-1 vendor/bin/behat --no-interaction --format=progress",
-        "check-style": "vendor/bin/ecs check src/ spec/ tests/",
+        "check-style": "ecs check",
         "checks": [
             "composer validate --strict",
             "composer normalize --dry-run",
             "@check-style",
             "@analyse"
         ],
-        "fix-style": "vendor/bin/ecs check src/ spec/ tests/ --fix",
+        "ensure-test-container-exists": "[[ -f tests/Application/var/cache/test/ApplicationTests_Setono_SyliusPickupPointPlugin_Application_KernelTestDebugContainer.xml ]] || tests/Application/bin/console cache:warmup --env=test",
+        "fix-style": "ecs check --fix",
         "fixtures": "(cd tests/Application && bin/console sylius:fixtures:load --no-interaction -e ${SYMFONY_ENV:-'dev'})",
-        "phpspec": "vendor/bin/phpspec run -vvv",
+        "phpspec": "phpspec run -vvv",
         "tests": [
             "@phpspec",
             "@behat"

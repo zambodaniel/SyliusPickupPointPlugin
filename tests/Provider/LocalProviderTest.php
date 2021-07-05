@@ -44,7 +44,11 @@ final class LocalProviderTest extends TestCase
 
         $pickupPoint = new PickupPoint(
             new PickupPointCode('123', 'gls', 'DK'),
-            'Service Point', 'Street 123', '1235A', 'Great City', 'DK'
+            'Service Point',
+            'Street 123',
+            '1235A',
+            'Great City',
+            'DK'
         );
 
         $repository = $this->prophesize(PickupPointRepositoryInterface::class);
