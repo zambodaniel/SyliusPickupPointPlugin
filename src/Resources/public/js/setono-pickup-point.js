@@ -8,32 +8,31 @@ let pickupPoints = {
   pickupPointChoices: {},
   lastChosenPickupPointId: null,
   init: function (args) {
-    self = this;
-    self.searchUrl = args.searchUrl;
+    this.searchUrl = args.searchUrl;
 
-    if (0 === self.pickupPointShippingMethods.length) {
+    if (0 === this.pickupPointShippingMethods.length) {
       return;
     }
 
-    self.pickupPointShippingMethods.forEach(function (element) {
-      self.searchAndStorePickupPoints(element);
+    this.pickupPointShippingMethods.forEach((element) => {
+      this.searchAndStorePickupPoints(element);
     });
 
-    self.shippingMethods.forEach(function (element) {
-      element.addEventListener('change', function () {
-        if (0 !== self.pickupPointsFieldInput.value.length) {
-          self.lastChosenPickupPointId = self.pickupPointsFieldInput.value;
+    this.shippingMethods.forEach((element) => {
+      element.addEventListener('change', () => {
+        if (0 !== this.pickupPointsFieldInput.value.length) {
+          this.lastChosenPickupPointId = this.pickupPointsFieldInput.value;
         }
-        self.pickupPointsFieldInput.value = null;
-        self.render();
+        this.pickupPointsFieldInput.value = null;
+        this.render();
       });
     });
 
-    self.render();
+    this.render();
   },
   searchAndStorePickupPoints: function (input) {
     let shippingMethodCode = input.getAttribute('value');
-    self.pickupPointChoices[shippingMethodCode] = {};
+    this.pickupPointChoices[shippingMethodCode] = {};
 
     let pickupPointChoices = this.pickupPointChoices;
     let inputSearchUrl = this.searchUrl;
@@ -51,26 +50,26 @@ let pickupPoints = {
     xhttp.open('GET', inputSearchUrl, false);
     xhttp.send();
 
-    self.pickupPointChoices = pickupPointChoices;
+    this.pickupPointChoices = pickupPointChoices;
   },
   render: function () {
     let selectedElement = document.querySelectorAll('input.input-shipping-method:checked');
     selectedElement = selectedElement[0];
     let currentShippingMethodCode = selectedElement.getAttribute('value');
 
-    const values = self.pickupPointChoices[currentShippingMethodCode];
+    const values = this.pickupPointChoices[currentShippingMethodCode];
     if (undefined === values || undefined === values.length || 0 === values.length) {
-      self.pickupPointsField.style.display = 'none';
-      self.pickupPointsFieldChoices.innerHTML = '';
+      this.pickupPointsField.style.display = 'none';
+      this.pickupPointsFieldChoices.innerHTML = '';
       return;
     }
 
-    self.pickupPointsField.style.display = 'block';
-    self.pickupPointsFieldChoices.innerHTML = self.valuesToRadio(values);
+    this.pickupPointsField.style.display = 'block';
+    this.pickupPointsFieldChoices.innerHTML = this.valuesToRadio(values);
 
-    var currentPickupPointId = self.pickupPointsFieldInput.value;
+    var currentPickupPointId = this.pickupPointsFieldInput.value;
     if (null === currentPickupPointId || 0 === currentPickupPointId.length) {
-      currentPickupPointId = self.lastChosenPickupPointId;
+      currentPickupPointId = this.lastChosenPickupPointId;
     }
 
     var currentPickupPointRadio = document.querySelector(`input.setono-sylius-pickup-point-field-choice-field[value="${currentPickupPointId}"]`);
@@ -79,17 +78,17 @@ let pickupPoints = {
     }
 
     const choices = document.querySelectorAll('input.setono-sylius-pickup-point-field-choice-field');
-    choices.forEach(function (choice) {
-      choice.addEventListener('change', function () {
-        self.pickupPointsFieldInput.value = choice.getAttribute('value');
+    choices.forEach((choice) => {
+      choice.addEventListener('change', () => {
+        this.pickupPointsFieldInput.value = choice.getAttribute('value');
       });
     });
   },
   valuesToRadio(values) {
     let content = ``;
 
-    values.forEach(function (value) {
-      let prototype = self.pickupPointsFieldChoicePrototype.innerHTML;
+    values.forEach((value) => {
+      let prototype = this.pickupPointsFieldChoicePrototype.innerHTML;
       let radio = prototype.replace(/{code}/g, value.code);
       radio = radio.replace(/{name}/g, value.name);
       radio = radio.replace(/{full_address}/g, value.full_address);
