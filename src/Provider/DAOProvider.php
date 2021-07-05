@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Setono\SyliusPickupPointPlugin\Provider;
 
+use function preg_replace;
 use Psr\Http\Client\NetworkExceptionInterface;
-use function Safe\preg_replace;
 use Setono\DAO\Client\ClientInterface;
 use Setono\SyliusPickupPointPlugin\Exception\TimeoutException;
 use Setono\SyliusPickupPointPlugin\Model\PickupPoint;
@@ -63,7 +63,7 @@ final class DAOProvider extends Provider
     }
 
     /**
-     * @return PickupPoint[]
+     * @return iterable<PickupPointInterface>
      */
     private function _findPickupPoints(array $params): iterable
     {

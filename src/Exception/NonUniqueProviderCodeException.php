@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Setono\SyliusPickupPointPlugin\Exception;
 
 use InvalidArgumentException;
-use function Safe\sprintf;
 use Setono\SyliusPickupPointPlugin\Provider\ProviderInterface;
+use function sprintf;
 
 final class NonUniqueProviderCodeException extends InvalidArgumentException implements ExceptionInterface
 {

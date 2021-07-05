@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Setono\SyliusPickupPointPlugin\Model;
 
-use function Safe\sprintf;
+use function sprintf;
 
 /**
  * It is not intended to extend/override this class

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Setono\SyliusPickupPointPlugin\Form\DataTransformer;
 
-use function Safe\sprintf;
 use Setono\SyliusPickupPointPlugin\Model\PickupPoint;
 use Setono\SyliusPickupPointPlugin\Model\PickupPointCode;
 use Setono\SyliusPickupPointPlugin\Provider\ProviderInterface;
+use function sprintf;
 use Sylius\Component\Registry\ServiceRegistryInterface;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
@@ -33,7 +33,7 @@ final class PickupPointToIdentifierTransformer implements DataTransformerInterfa
 
         $this->assertTransformationValueType($value, PickupPoint::class);
 
-        return $value->getId();
+        return $value->getCode();
     }
 
     /**

@@ -13,5 +13,8 @@ interface PickupPointRepositoryInterface extends RepositoryInterface
 {
     public function findOneByCode(PickupPointCode $code): ?PickupPointInterface;
 
+    /**
+     * @psalm-return list<PickupPointInterface>
+     */
     public function findByOrder(OrderInterface $order, string $provider): array;
 }

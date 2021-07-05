@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Setono\SyliusPickupPointPlugin\Provider;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Setono\SyliusPickupPointPlugin\Exception\TimeoutException;
 use Setono\SyliusPickupPointPlugin\Model\PickupPoint;
 use Setono\SyliusPickupPointPlugin\Model\PickupPointCode;
@@ -17,6 +18,8 @@ use Sylius\Component\Core\Model\OrderInterface;
 
 final class LocalProviderTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @test
      */
@@ -44,7 +47,11 @@ final class LocalProviderTest extends TestCase
 
         $pickupPoint = new PickupPoint(
             new PickupPointCode('123', 'gls', 'DK'),
-            'Service Point', 'Street 123', '1235A', 'Great City', 'DK'
+            'Service Point',
+            'Street 123',
+            '1235A',
+            'Great City',
+            'DK'
         );
 
         $repository = $this->prophesize(PickupPointRepositoryInterface::class);
@@ -55,7 +62,7 @@ final class LocalProviderTest extends TestCase
         $pickupPoints = $provider->findPickupPoints($order->reveal());
 
         self::assertNotEmpty($pickupPoints);
-        self::assertSame($pickupPoint, $pickupPoints[0]);
+        self::assertSame($pickupPoint, self::getFirstElementOfIterable($pickupPoints));
     }
 
     private function getProvider(bool $timeout = false, PickupPointRepositoryInterface $pickupPointRepository = null): LocalProvider
@@ -101,5 +108,14 @@ final class LocalProviderTest extends TestCase
         }
 
         return new LocalProvider($provider, $pickupPointRepository);
+    }
+
+    private static function getFirstElementOfIterable(iterable $list)
+    {
+        foreach ($list as $elm) {
+            return $elm;
+        }
+
+        throw new \InvalidArgumentException('No elements in $list');
     }
 }
