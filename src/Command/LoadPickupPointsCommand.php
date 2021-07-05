@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Setono\SyliusPickupPointPlugin\Command;
 
-use function Safe\sprintf;
 use Setono\SyliusPickupPointPlugin\Message\Command\LoadPickupPoints;
+use function sprintf;
 use Sylius\Component\Registry\ServiceRegistryInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;

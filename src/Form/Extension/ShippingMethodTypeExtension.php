@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Setono\SyliusPickupPointPlugin\Form\Extension;
 
-use function Safe\array_flip;
+use function array_flip;
 use Sylius\Bundle\ShippingBundle\Form\Type\ShippingMethodType;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
