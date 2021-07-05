@@ -6,11 +6,6 @@ namespace Setono\SyliusPickupPointPlugin\Model;
 
 use function sprintf;
 
-/**
- * It is not intended to extend/override this class
- *
- * @final
- */
 class PickupPoint implements PickupPointInterface
 {
     protected ?int $id;
@@ -31,32 +26,12 @@ class PickupPoint implements PickupPointInterface
 
     protected ?string $longitude;
 
-    public function __construct(
-        PickupPointCode $code,
-        string $name,
-        string $address,
-        string $zipCode,
-        string $city,
-        string $country,
-        string $latitude = null,
-        string $longitude = null
-    ) {
-        $this->code = $code;
-        $this->name = $name;
-        $this->address = $address;
-        $this->zipCode = $zipCode;
-        $this->city = $city;
-        $this->country = $country;
-        $this->latitude = $latitude;
-        $this->longitude = $longitude;
-    }
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCode(): PickupPointCode
+    public function getCode(): ?PickupPointCode
     {
         return $this->code;
     }
@@ -66,7 +41,7 @@ class PickupPoint implements PickupPointInterface
         $this->code = $code;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -76,7 +51,7 @@ class PickupPoint implements PickupPointInterface
         $this->name = $name;
     }
 
-    public function getAddress(): string
+    public function getAddress(): ?string
     {
         return $this->address;
     }
@@ -86,7 +61,7 @@ class PickupPoint implements PickupPointInterface
         $this->address = $address;
     }
 
-    public function getZipCode(): string
+    public function getZipCode(): ?string
     {
         return $this->zipCode;
     }
@@ -96,7 +71,7 @@ class PickupPoint implements PickupPointInterface
         $this->zipCode = $zipCode;
     }
 
-    public function getCity(): string
+    public function getCity(): ?string
     {
         return $this->city;
     }
@@ -106,7 +81,7 @@ class PickupPoint implements PickupPointInterface
         $this->city = $city;
     }
 
-    public function getCountry(): string
+    public function getCountry(): ?string
     {
         return $this->country;
     }

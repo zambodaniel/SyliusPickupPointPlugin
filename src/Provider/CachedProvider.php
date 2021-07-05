@@ -8,7 +8,6 @@ use Behat\Transliterator\Transliterator;
 use Generator;
 use Psr\Cache\CacheItemPoolInterface;
 use RuntimeException;
-use Setono\SyliusPickupPointPlugin\Model\PickupPoint;
 use Setono\SyliusPickupPointPlugin\Model\PickupPointCode;
 use Setono\SyliusPickupPointPlugin\Model\PickupPointInterface;
 use function sprintf;
@@ -22,17 +21,12 @@ final class CachedProvider extends Provider
 
     private ProviderInterface $provider;
 
-    public function __construct(
-        CacheItemPoolInterface $cacheItemPool,
-        ProviderInterface $provider
-    ) {
+    public function __construct(CacheItemPoolInterface $cacheItemPool, ProviderInterface $provider)
+    {
         $this->cacheItemPool = $cacheItemPool;
         $this->provider = $provider;
     }
 
-    /**
-     * @return PickupPoint[]
-     */
     public function findPickupPoints(OrderInterface $order): iterable
     {
         $orderCacheKey = $this->buildOrderCacheKey($order);
@@ -48,7 +42,7 @@ final class CachedProvider extends Provider
             $this->cacheItemPool->save($pickupPointsCacheItem);
 
             // Store separate PickupPoints to retrieve at findOnePickupPointById
-            /** @var PickupPoint $pickupPoint */
+            /** @var PickupPointInterface $pickupPoint */
             foreach ($pickupPoints as $pickupPoint) {
                 $pickupPointCacheKey = $this->buildPickupPointIdCacheKey($pickupPoint->getCode());
                 $pickupPointCacheItem = $this->cacheItemPool->getItem($pickupPointCacheKey);
@@ -57,7 +51,7 @@ final class CachedProvider extends Provider
             }
         }
 
-        /** @var PickupPoint[] $pickupPoints */
+        /** @var PickupPointInterface[] $pickupPoints */
         $pickupPoints = $this->cacheItemPool->getItem($orderCacheKey)->get();
 
         return $pickupPoints;
@@ -78,7 +72,7 @@ final class CachedProvider extends Provider
             $this->cacheItemPool->save($pickupPointCacheItem);
         }
 
-        /** @var PickupPoint $pickupPoint */
+        /** @var PickupPointInterface $pickupPoint */
         $pickupPoint = $this->cacheItemPool->getItem($pickupPointCacheKey)->get();
 
         return $pickupPoint;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Setono\SyliusPickupPointPlugin\Form\DataTransformer;
 
-use Setono\SyliusPickupPointPlugin\Model\PickupPoint;
 use Setono\SyliusPickupPointPlugin\Model\PickupPointCode;
+use Setono\SyliusPickupPointPlugin\Model\PickupPointInterface;
 use Setono\SyliusPickupPointPlugin\Provider\ProviderInterface;
 use function sprintf;
 use Sylius\Component\Registry\ServiceRegistryInterface;
@@ -22,7 +22,7 @@ final class PickupPointToIdentifierTransformer implements DataTransformerInterfa
     }
 
     /**
-     * @param mixed|PickupPoint $value
+     * @param mixed|PickupPointInterface $value
      */
     public function transform($value): ?PickupPointCode
     {
@@ -30,7 +30,7 @@ final class PickupPointToIdentifierTransformer implements DataTransformerInterfa
             return null;
         }
 
-        $this->assertTransformationValueType($value, PickupPoint::class);
+        $this->assertTransformationValueType($value, PickupPointInterface::class);
 
         return $value->getCode();
     }
@@ -38,7 +38,7 @@ final class PickupPointToIdentifierTransformer implements DataTransformerInterfa
     /**
      * @param mixed $value
      */
-    public function reverseTransform($value): ?PickupPoint
+    public function reverseTransform($value): ?PickupPointInterface
     {
         if (null === $value) {
             return null;
@@ -49,10 +49,10 @@ final class PickupPointToIdentifierTransformer implements DataTransformerInterfa
         /** @var ProviderInterface $provider */
         $provider = $this->providerRegistry->get($pickupPointId->getProviderPart());
 
-        /** @var PickupPoint $pickupPoint */
+        /** @var PickupPointInterface $pickupPoint */
         $pickupPoint = $provider->findPickupPoint($pickupPointId);
 
-        $this->assertTransformationValueType($pickupPoint, PickupPoint::class);
+        $this->assertTransformationValueType($pickupPoint, PickupPointInterface::class);
 
         return $pickupPoint;
     }

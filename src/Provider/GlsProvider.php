@@ -11,22 +11,27 @@ use Setono\GLS\Webservice\Exception\NoResultException;
 use Setono\GLS\Webservice\Exception\ParcelShopNotFoundException;
 use Setono\GLS\Webservice\Model\ParcelShop;
 use Setono\SyliusPickupPointPlugin\Exception\TimeoutException;
-use Setono\SyliusPickupPointPlugin\Model\PickupPoint;
 use Setono\SyliusPickupPointPlugin\Model\PickupPointCode;
 use Setono\SyliusPickupPointPlugin\Model\PickupPointInterface;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Resource\Factory\FactoryInterface;
+use Webmozart\Assert\Assert;
 
 final class GlsProvider extends Provider
 {
     private ClientInterface $client;
 
+    private FactoryInterface $pickupPointFactory;
+
     private array $countryCodes;
 
     public function __construct(
         ClientInterface $client,
+        FactoryInterface $pickupPointFactory,
         array $countryCodes = ['DK', 'SE']
     ) {
         $this->client = $client;
+        $this->pickupPointFactory = $pickupPointFactory;
         $this->countryCodes = $countryCodes;
     }
 
@@ -103,17 +108,22 @@ final class GlsProvider extends Provider
         return 'GLS';
     }
 
-    private function transform(ParcelShop $parcelShop): PickupPoint
+    private function transform(ParcelShop $parcelShop): PickupPointInterface
     {
-        return new PickupPoint(
-            new PickupPointCode($parcelShop->getNumber(), $this->getCode(), $parcelShop->getCountryCode()),
-            $parcelShop->getCompanyName(),
-            $parcelShop->getStreetName(),
-            $parcelShop->getZipCode(),
-            $parcelShop->getCity(),
-            $parcelShop->getCountryCode(),
-            $parcelShop->getLatitude(),
-            $parcelShop->getLongitude()
-        );
+        /** @var PickupPointInterface|object $pickupPoint */
+        $pickupPoint = $this->pickupPointFactory->createNew();
+
+        Assert::isInstanceOf($pickupPoint, PickupPointInterface::class);
+
+        $pickupPoint->setCode(new PickupPointCode($parcelShop->getNumber(), $this->getCode(), $parcelShop->getCountryCode()));
+        $pickupPoint->setName($parcelShop->getCompanyName());
+        $pickupPoint->setAddress($parcelShop->getStreetName());
+        $pickupPoint->setZipCode($parcelShop->getZipCode());
+        $pickupPoint->setCity($parcelShop->getCity());
+        $pickupPoint->setCountry($parcelShop->getCountryCode());
+        $pickupPoint->setLatitude($parcelShop->getLatitude());
+        $pickupPoint->setLongitude($parcelShop->getLongitude());
+
+        return $pickupPoint;
     }
 }

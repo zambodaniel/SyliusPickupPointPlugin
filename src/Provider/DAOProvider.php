@@ -8,18 +8,22 @@ use function preg_replace;
 use Psr\Http\Client\NetworkExceptionInterface;
 use Setono\DAO\Client\ClientInterface;
 use Setono\SyliusPickupPointPlugin\Exception\TimeoutException;
-use Setono\SyliusPickupPointPlugin\Model\PickupPoint;
 use Setono\SyliusPickupPointPlugin\Model\PickupPointCode;
 use Setono\SyliusPickupPointPlugin\Model\PickupPointInterface;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Resource\Factory\FactoryInterface;
+use Webmozart\Assert\Assert;
 
 final class DAOProvider extends Provider
 {
     private ClientInterface $client;
 
-    public function __construct(ClientInterface $client)
+    private FactoryInterface $pickupPointFactory;
+
+    public function __construct(ClientInterface $client, FactoryInterface $pickupPointFactory)
     {
         $this->client = $client;
+        $this->pickupPointFactory = $pickupPointFactory;
     }
 
     public function findPickupPoints(OrderInterface $order): iterable
@@ -93,19 +97,24 @@ final class DAOProvider extends Provider
         return 'DAO';
     }
 
-    private function populatePickupPoint(array $servicePoint): PickupPoint
+    private function populatePickupPoint(array $servicePoint): PickupPointInterface
     {
         $countryCode = 'DK'; // DAO only operates in Denmark
 
-        return new PickupPoint(
-            new PickupPointCode($servicePoint['shopId'], $this->getCode(), $countryCode),
-            $servicePoint['navn'],
-            $servicePoint['adresse'],
-            $servicePoint['postnr'],
-            $servicePoint['bynavn'],
-            $countryCode,
-            $servicePoint['latitude'],
-            $servicePoint['longitude']
-        );
+        /** @var PickupPointInterface|object $pickupPoint */
+        $pickupPoint = $this->pickupPointFactory->createNew();
+
+        Assert::isInstanceOf($pickupPoint, PickupPointInterface::class);
+
+        $pickupPoint->setCode(new PickupPointCode($servicePoint['shopId'], $this->getCode(), $countryCode));
+        $pickupPoint->setName($servicePoint['navn']);
+        $pickupPoint->setAddress($servicePoint['adresse']);
+        $pickupPoint->setZipCode($servicePoint['postnr']);
+        $pickupPoint->setCity($servicePoint['bynavn']);
+        $pickupPoint->setCountry($countryCode);
+        $pickupPoint->setLatitude($servicePoint['latitude']);
+        $pickupPoint->setLongitude($servicePoint['longitude']);
+
+        return $pickupPoint;
     }
 }

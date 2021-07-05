@@ -9,7 +9,6 @@ use Setono\GlsWebserviceBundle\SetonoGlsWebserviceBundle;
 use Setono\PostNordBundle\SetonoPostNordBundle;
 use Setono\SyliusPickupPointPlugin\Doctrine\ORM\PickupPointRepository;
 use Setono\SyliusPickupPointPlugin\Model\PickupPoint;
-use Setono\SyliusPickupPointPlugin\Model\PickupPointInterface;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
 use Sylius\Bundle\ResourceBundle\Form\Type\DefaultResourceType;
 use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
@@ -92,7 +91,6 @@ final class Configuration implements ConfigurationInterface
                                     ->addDefaultsIfNotSet()
                                     ->children()
                                         ->scalarNode('model')->defaultValue(PickupPoint::class)->cannotBeEmpty()->end()
-                                        ->scalarNode('interface')->defaultValue(PickupPointInterface::class)->cannotBeEmpty()->end()
                                         ->scalarNode('controller')->defaultValue(ResourceController::class)->cannotBeEmpty()->end()
                                         ->scalarNode('repository')->defaultValue(PickupPointRepository::class)->cannotBeEmpty()->end()
                                         ->scalarNode('form')->defaultValue(DefaultResourceType::class)->end()
