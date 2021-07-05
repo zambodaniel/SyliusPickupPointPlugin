@@ -10,7 +10,7 @@ use Setono\SyliusPickupPointPlugin\Repository\PickupPointRepositoryInterface;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\Component\Core\Model\OrderInterface;
 
-final class PickupPointRepository extends EntityRepository implements PickupPointRepositoryInterface
+class PickupPointRepository extends EntityRepository implements PickupPointRepositoryInterface
 {
     public function findOneByCode(PickupPointCode $code): ?PickupPointInterface
     {
