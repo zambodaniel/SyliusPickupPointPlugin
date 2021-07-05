@@ -33,7 +33,7 @@ final class PickupPointToIdentifierTransformer implements DataTransformerInterfa
 
         $this->assertTransformationValueType($value, PickupPoint::class);
 
-        return $value->getId();
+        return $value->getCode();
     }
 
     /**

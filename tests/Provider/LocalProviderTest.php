@@ -59,7 +59,7 @@ final class LocalProviderTest extends TestCase
         $pickupPoints = $provider->findPickupPoints($order->reveal());
 
         self::assertNotEmpty($pickupPoints);
-        self::assertSame($pickupPoint, $pickupPoints[0]);
+        self::assertSame($pickupPoint, self::getFirstElementOfIterable($pickupPoints));
     }
 
     private function getProvider(bool $timeout = false, PickupPointRepositoryInterface $pickupPointRepository = null): LocalProvider
@@ -105,5 +105,14 @@ final class LocalProviderTest extends TestCase
         }
 
         return new LocalProvider($provider, $pickupPointRepository);
+    }
+
+    private static function getFirstElementOfIterable(iterable $list)
+    {
+        foreach ($list as $elm) {
+            return $elm;
+        }
+
+        throw new \InvalidArgumentException('No elements in $list');
     }
 }

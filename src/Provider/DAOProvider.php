@@ -63,7 +63,7 @@ final class DAOProvider extends Provider
     }
 
     /**
-     * @return PickupPoint[]
+     * @return iterable<PickupPointInterface>
      */
     private function _findPickupPoints(array $params): iterable
     {
