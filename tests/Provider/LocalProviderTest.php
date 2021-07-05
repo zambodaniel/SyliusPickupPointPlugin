@@ -15,6 +15,7 @@ use Setono\SyliusPickupPointPlugin\Provider\LocalProvider;
 use Setono\SyliusPickupPointPlugin\Provider\ProviderInterface;
 use Setono\SyliusPickupPointPlugin\Repository\PickupPointRepositoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Resource\Factory\Factory;
 
 final class LocalProviderTest extends TestCase
 {
@@ -45,14 +46,13 @@ final class LocalProviderTest extends TestCase
     {
         $order = $this->prophesize(OrderInterface::class);
 
-        $pickupPoint = new PickupPoint(
-            new PickupPointCode('123', 'gls', 'DK'),
-            'Service Point',
-            'Street 123',
-            '1235A',
-            'Great City',
-            'DK'
-        );
+        $pickupPoint = new PickupPoint();
+        $pickupPoint->setCode(new PickupPointCode('123', 'gls', 'DK'));
+        $pickupPoint->setName('Service Point');
+        $pickupPoint->setAddress('Street 123');
+        $pickupPoint->setZipCode('1235A');
+        $pickupPoint->setCity('Great City');
+        $pickupPoint->setCountry('DK');
 
         $repository = $this->prophesize(PickupPointRepositoryInterface::class);
         $repository->findByOrder($order, 'timeout_provider')->willReturn([$pickupPoint]);
@@ -67,7 +67,9 @@ final class LocalProviderTest extends TestCase
 
     private function getProvider(bool $timeout = false, PickupPointRepositoryInterface $pickupPointRepository = null): LocalProvider
     {
-        $provider = new FakerProvider();
+        $pickupPointFactory = new Factory(PickupPoint::class);
+
+        $provider = new FakerProvider($pickupPointFactory);
         if ($timeout) {
             $provider = new class() implements ProviderInterface {
                 public function __toString(): string
