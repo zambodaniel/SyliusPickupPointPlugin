@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Setono\SyliusPickupPointPlugin\Provider;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Setono\SyliusPickupPointPlugin\Exception\TimeoutException;
 use Setono\SyliusPickupPointPlugin\Model\PickupPoint;
 use Setono\SyliusPickupPointPlugin\Model\PickupPointCode;
@@ -17,6 +18,8 @@ use Sylius\Component\Core\Model\OrderInterface;
 
 final class LocalProviderTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @test
      */
