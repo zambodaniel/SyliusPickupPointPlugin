@@ -18,11 +18,9 @@ use Sylius\Component\Core\Model\OrderInterface;
 
 final class GlsProvider extends Provider
 {
-    /** @var ClientInterface */
-    private $client;
+    private ClientInterface $client;
 
-    /** @var array */
-    private $countryCodes;
+    private array $countryCodes;
 
     public function __construct(
         ClientInterface $client,

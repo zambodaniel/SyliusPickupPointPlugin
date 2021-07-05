@@ -16,17 +16,13 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 final class ShippingMethodChoiceTypeExtension extends AbstractTypeExtension
 {
-    /** @var ServiceRegistryInterface */
-    private $providerRegistry;
+    private ServiceRegistryInterface $providerRegistry;
 
-    /** @var RouterInterface */
-    private $router;
+    private RouterInterface $router;
 
-    /** @var CartContextInterface */
-    private $cartContext;
+    private CartContextInterface $cartContext;
 
-    /** @var CsrfTokenManagerInterface */
-    private $csrfTokenManager;
+    private CsrfTokenManagerInterface $csrfTokenManager;
 
     public function __construct(
         ServiceRegistryInterface $providerRegistry,

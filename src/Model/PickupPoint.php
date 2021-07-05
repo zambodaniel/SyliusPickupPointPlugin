@@ -13,32 +13,23 @@ use function sprintf;
  */
 class PickupPoint implements PickupPointInterface
 {
-    /** @var int|null */
-    protected $id;
+    protected ?int $id;
 
-    /** @var PickupPointCode */
-    protected $code;
+    protected PickupPointCode $code;
 
-    /** @var string */
-    protected $name;
+    protected string $name;
 
-    /** @var string */
-    protected $address;
+    protected string $address;
 
-    /** @var string */
-    protected $zipCode;
+    protected string $zipCode;
 
-    /** @var string */
-    protected $city;
+    protected string $city;
 
-    /** @var string */
-    protected $country;
+    protected string $country;
 
-    /** @var string|null */
-    protected $latitude;
+    protected ?string $latitude;
 
-    /** @var string|null */
-    protected $longitude;
+    protected ?string $longitude;
 
     public function __construct(
         PickupPointCode $code,

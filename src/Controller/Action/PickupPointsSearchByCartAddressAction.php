@@ -21,17 +21,13 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 final class PickupPointsSearchByCartAddressAction
 {
-    /** @var ViewHandlerInterface */
-    private $viewHandler;
+    private ViewHandlerInterface $viewHandler;
 
-    /** @var CartContextInterface */
-    private $cartContext;
+    private CartContextInterface $cartContext;
 
-    /** @var CsrfTokenManagerInterface */
-    private $csrfTokenManager;
+    private CsrfTokenManagerInterface $csrfTokenManager;
 
-    /** @var ServiceRegistryInterface */
-    private $providerRegistry;
+    private ServiceRegistryInterface $providerRegistry;
 
     public function __construct(
         ViewHandlerInterface $viewHandler,

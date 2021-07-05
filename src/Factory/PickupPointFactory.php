@@ -10,8 +10,7 @@ use Webmozart\Assert\Assert;
 
 final class PickupPointFactory implements PickupPointFactoryInterface
 {
-    /** @var string */
-    private $className;
+    private string $className;
 
     public function __construct(string $className)
     {

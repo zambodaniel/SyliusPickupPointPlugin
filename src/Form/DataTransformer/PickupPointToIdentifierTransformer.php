@@ -14,8 +14,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 final class PickupPointToIdentifierTransformer implements DataTransformerInterface
 {
-    /** @var ServiceRegistryInterface */
-    private $providerRegistry;
+    private ServiceRegistryInterface $providerRegistry;
 
     public function __construct(ServiceRegistryInterface $providerRegistry)
     {

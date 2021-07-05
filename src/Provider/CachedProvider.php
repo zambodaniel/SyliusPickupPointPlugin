@@ -18,11 +18,9 @@ use Webmozart\Assert\Assert;
 
 final class CachedProvider extends Provider
 {
-    /** @var CacheItemPoolInterface */
-    private $cacheItemPool;
+    private CacheItemPoolInterface $cacheItemPool;
 
-    /** @var ProviderInterface */
-    private $provider;
+    private ProviderInterface $provider;
 
     public function __construct(
         CacheItemPoolInterface $cacheItemPool,

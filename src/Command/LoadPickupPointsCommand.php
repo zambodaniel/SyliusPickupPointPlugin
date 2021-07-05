@@ -19,14 +19,11 @@ final class LoadPickupPointsCommand extends Command
 {
     protected static $defaultName = 'setono-sylius-pickup-point:load-pickup-points';
 
-    /** @var SymfonyStyle */
-    private $io;
+    private SymfonyStyle $io;
 
-    /** @var ServiceRegistryInterface */
-    private $providerRegistry;
+    private ServiceRegistryInterface $providerRegistry;
 
-    /** @var MessageBusInterface */
-    private $messageBus;
+    private MessageBusInterface $messageBus;
 
     public function __construct(ServiceRegistryInterface $providerRegistry, MessageBusInterface $messageBus)
     {

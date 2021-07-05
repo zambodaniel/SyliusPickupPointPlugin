@@ -14,11 +14,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class PickupPointByIdAction
 {
-    /** @var ViewHandlerInterface */
-    private $viewHandler;
+    private ViewHandlerInterface $viewHandler;
 
-    /** @var DataTransformerInterface */
-    private $pickupPointToIdentifierTransformer;
+    private DataTransformerInterface $pickupPointToIdentifierTransformer;
 
     public function __construct(
         ViewHandlerInterface $viewHandler,

@@ -12,11 +12,9 @@ use Sylius\Component\Core\Model\OrderInterface;
 
 final class LocalProvider extends Provider
 {
-    /** @var ProviderInterface */
-    private $decoratedProvider;
+    private ProviderInterface $decoratedProvider;
 
-    /** @var PickupPointRepositoryInterface */
-    private $pickupPointRepository;
+    private PickupPointRepositoryInterface $pickupPointRepository;
 
     public function __construct(ProviderInterface $decoratedProvider, PickupPointRepositoryInterface $pickupPointRepository)
     {

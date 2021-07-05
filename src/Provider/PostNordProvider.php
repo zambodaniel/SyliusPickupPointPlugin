@@ -18,8 +18,7 @@ use Sylius\Component\Core\Model\OrderInterface;
  */
 final class PostNordProvider extends Provider
 {
-    /** @var ClientInterface */
-    private $client;
+    private ClientInterface $client;
 
     public function __construct(ClientInterface $client)
     {

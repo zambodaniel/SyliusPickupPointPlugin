@@ -12,11 +12,9 @@ final class PickupPointCode
 {
     private const DELIMITER = '---';
 
-    /** @var string */
-    private $id;
+    private string $id;
 
-    /** @var string */
-    private $provider;
+    private string $provider;
 
     /**
      * Some providers will only have unique ids per country

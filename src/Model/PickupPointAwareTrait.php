@@ -9,11 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 trait PickupPointAwareTrait
 {
     /**
-     * @var string|null
-     *
      * @ORM\Column(name="pickup_point_id", type="string", nullable=true)
      */
-    protected $pickupPointId;
+    protected ?string $pickupPointId;
 
     public function hasPickupPointId(): bool
     {

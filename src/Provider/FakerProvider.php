@@ -14,8 +14,7 @@ use Webmozart\Assert\Assert;
 
 final class FakerProvider extends Provider
 {
-    /** @var Generator */
-    private $faker;
+    private Generator $faker;
 
     public function __construct()
     {

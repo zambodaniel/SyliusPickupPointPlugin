@@ -14,14 +14,11 @@ use Webmozart\Assert\Assert;
 
 final class LoadPickupPointsHandler implements MessageHandlerInterface
 {
-    /** @var ServiceRegistryInterface */
-    private $providerRegistry;
+    private ServiceRegistryInterface $providerRegistry;
 
-    /** @var PickupPointRepositoryInterface */
-    private $pickupPointRepository;
+    private PickupPointRepositoryInterface $pickupPointRepository;
 
-    /** @var EntityManagerInterface */
-    private $pickupPointManager;
+    private EntityManagerInterface $pickupPointManager;
 
     public function __construct(
         ServiceRegistryInterface $providerRegistry,

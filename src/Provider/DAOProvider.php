@@ -15,8 +15,7 @@ use Sylius\Component\Core\Model\OrderInterface;
 
 final class DAOProvider extends Provider
 {
-    /** @var ClientInterface */
-    private $client;
+    private ClientInterface $client;
 
     public function __construct(ClientInterface $client)
     {
