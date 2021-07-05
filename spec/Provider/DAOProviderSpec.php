@@ -12,12 +12,14 @@ use Setono\SyliusPickupPointPlugin\Provider\DAOProvider;
 use Setono\SyliusPickupPointPlugin\Provider\ProviderInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Resource\Factory\FactoryInterface;
 
 class DAOProviderSpec extends ObjectBehavior
 {
-    public function let(ClientInterface $client): void
+    public function let(ClientInterface $client, FactoryInterface $factory): void
     {
-        $this->beConstructedWith($client);
+        $factory->createNew()->willReturn(new PickupPoint());
+        $this->beConstructedWith($client, $factory);
     }
 
     public function it_is_initializable(): void
