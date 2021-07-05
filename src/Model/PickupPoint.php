@@ -10,21 +10,21 @@ class PickupPoint implements PickupPointInterface
 {
     protected ?int $id;
 
-    protected PickupPointCode $code;
+    protected ?PickupPointCode $code = null;
 
-    protected string $name;
+    protected ?string $name = null;
 
-    protected string $address;
+    protected ?string $address = null;
 
-    protected string $zipCode;
+    protected ?string $zipCode = null;
 
-    protected string $city;
+    protected ?string $city = null;
 
-    protected string $country;
+    protected ?string $country = null;
 
-    protected ?string $latitude;
+    protected ?string $latitude = null;
 
-    protected ?string $longitude;
+    protected ?string $longitude = null;
 
     public function getId(): ?int
     {
