@@ -29,6 +29,11 @@ final class OrderShippingMethodSelectionRequirementChecker implements OrderShipp
             return true;
         }
 
+        // the original Sylius checker returns false in two cases
+        // 1. If shipping is not required
+        // 2. If there only is one available shipping method
+        // we need to cover both cases here
+
         if (!$order->isShippingRequired()) {
             return false;
         }
