@@ -33,16 +33,17 @@ class GlsProviderMocker extends Provider
 
     public function findPickupPoint(PickupPointCode $code): ?PickupPointInterface
     {
-        return new PickupPoint(
-            new PickupPointCode(self::PICKUP_POINT_ID, $this->getCode(), 'DK'),
-            'Somewhere',
-            '1 Rainbow str',
-            '4499',
-            'Aalborg',
-            'DK',
-            '23N',
-            '180E'
-        );
+        $pickupPoint = new PickupPoint();
+        $pickupPoint->setCode(new PickupPointCode(self::PICKUP_POINT_ID, $this->getCode(), 'DK'));
+        $pickupPoint->setName('Somewhere');
+        $pickupPoint->setAddress('1 Rainbow str');
+        $pickupPoint->setZipCode('4499');
+        $pickupPoint->setCity('Aalborg');
+        $pickupPoint->setCountry('DK');
+        $pickupPoint->setLatitude(57.046707);
+        $pickupPoint->setLongitude(9.935932);
+
+        return $pickupPoint;
     }
 
     public function findAllPickupPoints(): iterable
