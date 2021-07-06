@@ -80,8 +80,8 @@ final class FakerProvider extends Provider
         $pickupPoint->setZipCode((string) $this->faker->numberBetween(11111, 99999));
         $pickupPoint->setCity($this->faker->city);
         $pickupPoint->setCountry($countryCode);
-        $pickupPoint->setLatitude((string) $this->faker->latitude);
-        $pickupPoint->setLongitude((string) $this->faker->longitude);
+        $pickupPoint->setLatitude($this->faker->latitude);
+        $pickupPoint->setLongitude($this->faker->longitude);
 
         return $pickupPoint;
     }

@@ -138,8 +138,8 @@ final class PostNordProvider extends Provider
 
         $latitude = $longitude = null;
         if (isset($servicePoint['coordinates'][0])) {
-            $latitude = (string) $servicePoint['coordinates'][0]['northing'];
-            $longitude = (string) $servicePoint['coordinates'][0]['easting'];
+            $latitude = (float) $servicePoint['coordinates'][0]['northing'];
+            $longitude = (float) $servicePoint['coordinates'][0]['easting'];
         }
 
         /** @var PickupPointInterface|object $pickupPoint */

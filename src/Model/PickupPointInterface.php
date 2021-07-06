@@ -35,13 +35,19 @@ interface PickupPointInterface extends ResourceInterface
 
     public function setCountry(string $country): void;
 
-    public function getLatitude(): ?string;
+    public function getLatitude(): ?float;
 
-    public function setLatitude(?string $latitude): void;
+    /**
+     * @throws \InvalidArgumentException if the $latitude is invalid
+     */
+    public function setLatitude(?float $latitude): void;
 
-    public function getLongitude(): ?string;
+    public function getLongitude(): ?float;
 
-    public function setLongitude(?string $longitude): void;
+    /**
+     * @throws \InvalidArgumentException if the $longitude is invalid
+     */
+    public function setLongitude(?float $longitude): void;
 
     public function getFullAddress(): string;
 }
