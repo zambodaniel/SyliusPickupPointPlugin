@@ -38,6 +38,8 @@
     "Sylius\\Component\\Core\\Model\\ShippingMethodInterface",
     "Sylius\\Component\\Order\\Context\\CartContextInterface",
     "Sylius\\Component\\Registry\\ServiceRegistryInterface",
-    "Sylius\\Bundle\\CoreBundle\\Application\\SyliusPluginTrait"
+    "Sylius\\Bundle\\CoreBundle\\Application\\SyliusPluginTrait",
+    "Sylius\\Component\\Core\\Checker\\OrderShippingMethodSelectionRequirementCheckerInterface",
+    "Sylius\\Component\\Shipping\\Resolver\\ShippingMethodsResolverInterface"
   ]
 }
