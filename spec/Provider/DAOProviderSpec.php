@@ -105,8 +105,8 @@ class DAOProviderSpec extends ObjectBehavior
         $pickupPoint->getZipCode()->shouldReturn('7100');
         $pickupPoint->getCity()->shouldReturn('Vejle');
         $pickupPoint->getCountry()->shouldReturn('DK');
-        $pickupPoint->getLatitude()->shouldReturn('55.7119');
-        $pickupPoint->getLongitude()->shouldReturn('9.539939');
+        $pickupPoint->getLatitude()->shouldReturn(55.7119);
+        $pickupPoint->getLongitude()->shouldReturn(9.539939);
     }
 
     private function pickupPointArray(string $id): array
@@ -118,8 +118,8 @@ class DAOProviderSpec extends ObjectBehavior
             'postnr' => '7100',
             'bynavn' => 'Vejle',
             'udsortering' => 'E',
-            'latitude' => '55.7119',
-            'longitude' => '9.539939',
+            'latitude' => 55.7119,
+            'longitude' => 9.539939,
             'afstand' => 2.652,
             'aabningstider' => [
                 'man' => '08:00 - 22:00',

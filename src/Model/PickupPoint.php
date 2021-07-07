@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Setono\SyliusPickupPointPlugin\Model;
 
 use function sprintf;
+use Webmozart\Assert\Assert;
 
 class PickupPoint implements PickupPointInterface
 {
@@ -22,9 +23,9 @@ class PickupPoint implements PickupPointInterface
 
     protected ?string $country = null;
 
-    protected ?string $latitude = null;
+    protected ?float $latitude = null;
 
-    protected ?string $longitude = null;
+    protected ?float $longitude = null;
 
     public function getId(): ?int
     {
@@ -91,23 +92,27 @@ class PickupPoint implements PickupPointInterface
         $this->country = $country;
     }
 
-    public function getLatitude(): ?string
+    public function getLatitude(): ?float
     {
         return $this->latitude;
     }
 
-    public function setLatitude(?string $latitude): void
+    public function setLatitude(?float $latitude): void
     {
+        Assert::nullOrRange($latitude, -90, 90);
+
         $this->latitude = $latitude;
     }
 
-    public function getLongitude(): ?string
+    public function getLongitude(): ?float
     {
         return $this->longitude;
     }
 
-    public function setLongitude(?string $longitude): void
+    public function setLongitude(?float $longitude): void
     {
+        Assert::nullOrRange($longitude, -180, 180);
+
         $this->longitude = $longitude;
     }
 

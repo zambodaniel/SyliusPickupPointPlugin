@@ -121,8 +121,8 @@ final class GlsProvider extends Provider
         $pickupPoint->setZipCode($parcelShop->getZipCode());
         $pickupPoint->setCity($parcelShop->getCity());
         $pickupPoint->setCountry($parcelShop->getCountryCode());
-        $pickupPoint->setLatitude($parcelShop->getLatitude());
-        $pickupPoint->setLongitude($parcelShop->getLongitude());
+        $pickupPoint->setLatitude((float) $parcelShop->getLatitude());
+        $pickupPoint->setLongitude((float) $parcelShop->getLongitude());
 
         return $pickupPoint;
     }
