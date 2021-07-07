@@ -99,8 +99,7 @@ class PickupPoint implements PickupPointInterface
 
     public function setLatitude(?float $latitude): void
     {
-        Assert::nullOrGreaterThanEq($latitude, -90);
-        Assert::nullOrLessThanEq($latitude, 90);
+        Assert::nullOrRange($latitude, -90, 90);
 
         $this->latitude = $latitude;
     }
@@ -112,8 +111,7 @@ class PickupPoint implements PickupPointInterface
 
     public function setLongitude(?float $longitude): void
     {
-        Assert::nullOrGreaterThanEq($longitude, -180);
-        Assert::nullOrLessThanEq($longitude, 180);
+        Assert::nullOrRange($longitude, -180, 180);
 
         $this->longitude = $longitude;
     }
