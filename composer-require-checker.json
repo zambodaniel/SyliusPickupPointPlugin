@@ -40,6 +40,8 @@
     "Sylius\\Component\\Registry\\ServiceRegistryInterface",
     "Sylius\\Bundle\\CoreBundle\\Application\\SyliusPluginTrait",
     "Sylius\\Component\\Core\\Checker\\OrderShippingMethodSelectionRequirementCheckerInterface",
-    "Sylius\\Component\\Shipping\\Resolver\\ShippingMethodsResolverInterface"
+    "Sylius\\Component\\Shipping\\Resolver\\ShippingMethodsResolverInterface",
+    "Symfony\\Component\\Security\\Csrf\\CsrfToken",
+    "Symfony\\Component\\Security\\Csrf\\CsrfTokenManagerInterface"
   ]
 }
