@@ -12,9 +12,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class PickupPointChoiceType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         // @todo Check multiple option works as expected if it will be required
@@ -24,9 +21,6 @@ final class PickupPointChoiceType extends AbstractType
         $view->vars['placeholder'] = $options['placeholder'];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
@@ -46,17 +40,11 @@ final class PickupPointChoiceType extends AbstractType
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParent(): string
     {
         return HiddenType::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBlockPrefix(): string
     {
         return 'setono_sylius_pickup_point_choice';
