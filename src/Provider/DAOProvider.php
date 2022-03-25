@@ -112,8 +112,9 @@ final class DAOProvider extends Provider
         $pickupPoint->setZipCode($servicePoint['postnr']);
         $pickupPoint->setCity($servicePoint['bynavn']);
         $pickupPoint->setCountry($countryCode);
-        $pickupPoint->setLatitude($servicePoint['latitude']);
-        $pickupPoint->setLongitude($servicePoint['longitude']);
+
+        $pickupPoint->setLatitude((float) $servicePoint['latitude']);
+        $pickupPoint->setLongitude((float) $servicePoint['longitude']);
 
         return $pickupPoint;
     }
