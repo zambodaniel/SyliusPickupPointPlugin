@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <psalm
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    totallyTyped="true"
     findUnusedCode="false"
     errorLevel="5"
     xmlns="https://getpsalm.org/schema/config"
