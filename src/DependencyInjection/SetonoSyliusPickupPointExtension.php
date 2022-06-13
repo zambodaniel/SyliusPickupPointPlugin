@@ -10,6 +10,7 @@ use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Webmozart\Assert\Assert;
 
 final class SetonoSyliusPickupPointExtension extends AbstractResourceExtension
 {
@@ -24,6 +25,7 @@ final class SetonoSyliusPickupPointExtension extends AbstractResourceExtension
         $loader->load('services.xml');
 
         $bundles = $container->hasParameter('kernel.bundles') ? $container->getParameter('kernel.bundles') : [];
+        Assert::isArray($bundles);
 
         $cacheEnabled = $config['cache']['enabled'];
         if ($cacheEnabled) {
