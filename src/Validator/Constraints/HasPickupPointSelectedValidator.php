@@ -8,22 +8,29 @@ use Setono\SyliusPickupPointPlugin\Model\PickupPointProviderAwareInterface;
 use Setono\SyliusPickupPointPlugin\Model\ShipmentInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Webmozart\Assert\Assert;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 final class HasPickupPointSelectedValidator extends ConstraintValidator
 {
-    /**
-     * @param ShipmentInterface|mixed $value
-     * @param HasPickupPointSelected|Constraint $constraint
-     */
     public function validate($value, Constraint $constraint): void
     {
-        Assert::isInstanceOf($constraint, HasPickupPointSelected::class);
+        if (null === $value || '' === $value) {
+            return;
+        }
 
-        Assert::isInstanceOf($value, ShipmentInterface::class);
+        if (!$constraint instanceof HasPickupPointSelected) {
+            throw new UnexpectedTypeException($constraint, HasPickupPointSelected::class);
+        }
 
-        /** @var PickupPointProviderAwareInterface $method */
+        if (!$value instanceof ShipmentInterface) {
+            return;
+        }
+
         $method = $value->getMethod();
+
+        if (!$method instanceof PickupPointProviderAwareInterface) {
+            return;
+        }
 
         if (!$method->hasPickupPointProvider()) {
             return;
@@ -34,8 +41,6 @@ final class HasPickupPointSelectedValidator extends ConstraintValidator
                 ->buildViolation($constraint->pickupPointNotBlank)
                 ->addViolation()
             ;
-
-            return;
         }
     }
 }
