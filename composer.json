@@ -16,7 +16,7 @@
         "friendsofsymfony/rest-bundle": "^2.8 || ^3.0",
         "psr/cache": "^1.0 || ^2.0 || ^3.0",
         "psr/http-client": "^1.0",
-        "sylius/resource-bundle": "^1.6",
+        "sylius/resource-bundle": "^1.8",
         "symfony/cache": "^4.4 || ^5.3",
         "symfony/config": "^4.4 || ^5.4",
         "symfony/console": "^4.4 || ^5.4",
