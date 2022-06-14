@@ -1,7 +1,6 @@
 # Sylius Pickup Point Plugin
 
 [![Latest Version][ico-version]][link-packagist]
-[![Latest Unstable Version][ico-unstable-version]][link-packagist]
 [![Software License][ico-license]](LICENSE)
 [![Build Status][ico-github-actions]][link-github-actions]
 
@@ -328,7 +327,6 @@ So, to play with all 3 providers at once - use `DK` address.
   Make sure you're followed instructions from `Installation step 7`. 
 
 [ico-version]: https://poser.pugx.org/setono/sylius-pickup-point-plugin/v/stable
-[ico-unstable-version]: https://poser.pugx.org/setono/sylius-pickup-point-plugin/v/unstable
 [ico-license]: https://poser.pugx.org/setono/sylius-pickup-point-plugin/license
 [ico-github-actions]: https://github.com/Setono/SyliusPickupPointPlugin/workflows/build/badge.svg
 
