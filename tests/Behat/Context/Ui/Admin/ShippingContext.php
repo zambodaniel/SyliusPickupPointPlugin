@@ -9,12 +9,10 @@ use Tests\Setono\SyliusPickupPointPlugin\Behat\Page\Admin\ShippingMethod\CreateP
 
 final class ShippingContext implements Context
 {
-    /** @var CreatePageInterface */
-    private $createPage;
+    private CreatePageInterface $createPage;
 
-    public function __construct(
-        CreatePageInterface $createPage
-    ) {
+    public function __construct(CreatePageInterface $createPage)
+    {
         $this->createPage = $createPage;
     }
 

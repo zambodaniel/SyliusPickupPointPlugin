@@ -4,27 +4,27 @@ on:
         branches:
             - "master"
         paths-ignore:
-            - "*.md"
+            - "**/*.md"
     pull_request:
         paths-ignore:
-            - "*.md"
+            - "**/*.md"
     workflow_dispatch: ~
 
 env:
     APP_ENV: "test"
-    DATABASE_URL: "mysql://root:root@127.0.0.1/sylius?serverVersion=5.7"
+    DATABASE_URL: "mysql://root:root@127.0.0.1/sylius?serverVersion=8.0"
     PHP_EXTENSIONS: "intl, mbstring"
 
 jobs:
     coding-standards:
-        name: "Coding Standards"
+        name: "Coding Standards (PHP${{ matrix.php-version }} | Deps: ${{ matrix.dependencies }})"
 
         runs-on: "ubuntu-latest"
 
         strategy:
             matrix:
                 php-version:
-                    - "7.4"
+                    - "8.1"
 
                 dependencies:
                     - "highest"
@@ -61,7 +61,7 @@ jobs:
                 run: "(cd tests/Application && bin/console lint:twig ../../src/Resources)"
 
     dependency-analysis:
-        name: "Dependency Analysis"
+        name: "Dependency Analysis (PHP${{ matrix.php-version }} | Deps: ${{ matrix.dependencies }} | SF${{ matrix.symfony }})"
 
         runs-on: "ubuntu-latest"
 
@@ -69,9 +69,15 @@ jobs:
             matrix:
                 php-version:
                     - "7.4"
+                    - "8.0"
+                    - "8.1"
 
                 dependencies:
                     - "highest"
+
+                symfony:
+                    - "^4.4"
+                    - "^5.4"
 
         steps:
             -   name: "Checkout"
@@ -83,10 +89,12 @@ jobs:
                     coverage: "none"
                     extensions: "${{ env.PHP_EXTENSIONS }}"
                     php-version: "${{ matrix.php-version }}"
-                    tools: "composer-require-checker, composer-unused"
+                    tools: "composer-require-checker, composer-unused, flex"
 
             -   name: "Install composer dependencies"
                 uses: "ramsey/composer-install@v2"
+                env:
+                    SYMFONY_REQUIRE: "${{ matrix.symfony }}"
                 with:
                     dependency-versions: "${{ matrix.dependencies }}"
 
@@ -97,7 +105,7 @@ jobs:
                 run: "composer-unused"
 
     static-code-analysis:
-        name: "Static Code Analysis"
+        name: "Static Code Analysis (PHP${{ matrix.php-version }} | Deps: ${{ matrix.dependencies }} | SF${{ matrix.symfony }})"
 
         runs-on: "ubuntu-latest"
 
@@ -105,9 +113,15 @@ jobs:
             matrix:
                 php-version:
                     - "7.4"
+                    - "8.0"
+                    - "8.1"
 
                 dependencies:
                     - "highest"
+
+                symfony:
+                    - "^4.4"
+                    - "^5.4"
 
         steps:
             -   name: "Checkout"
@@ -116,12 +130,15 @@ jobs:
             -   name: "Setup PHP, with composer and extensions"
                 uses: "shivammathur/setup-php@v2"
                 with:
-                    php-version: "${{ matrix.php-version }}"
-                    extensions: "${{ env.PHP_EXTENSIONS }}"
                     coverage: "none"
+                    extensions: "${{ env.PHP_EXTENSIONS }}"
+                    php-version: "${{ matrix.php-version }}"
+                    tools: "flex"
 
             -   name: "Install composer dependencies"
                 uses: "ramsey/composer-install@v2"
+                env:
+                    SYMFONY_REQUIRE: "${{ matrix.symfony }}"
                 with:
                     dependency-versions: "${{ matrix.dependencies }}"
 
@@ -129,12 +146,10 @@ jobs:
                 run: "(cd tests/Application && bin/console cache:warmup)"
 
             -   name: "Static analysis"
-                run: "composer analyse"
-                env:
-                    APP_DEBUG: 1
+                run: "vendor/bin/psalm --php-version=${{ matrix.php-version }}"
 
     unit-tests:
-        name: "Unit tests"
+        name: "Unit tests (PHP${{ matrix.php-version }} | Deps: ${{ matrix.dependencies }} | SF${{ matrix.symfony }})"
 
         runs-on: "ubuntu-latest"
 
@@ -142,10 +157,15 @@ jobs:
             matrix:
                 php-version:
                     - "7.4"
+                    - "8.0"
+                    - "8.1"
 
                 dependencies:
-                    - "lowest"
                     - "highest"
+
+                symfony:
+                    - "^4.4"
+                    - "^5.4"
 
         steps:
             -   name: "Checkout"
@@ -154,23 +174,26 @@ jobs:
             -   name: "Setup PHP, with composer and extensions"
                 uses: "shivammathur/setup-php@v2"
                 with:
-                    php-version: "${{ matrix.php-version }}"
-                    extensions: "${{ env.PHP_EXTENSIONS }}"
                     coverage: "none"
+                    extensions: "${{ env.PHP_EXTENSIONS }}"
+                    php-version: "${{ matrix.php-version }}"
+                    tools: "flex"
 
             -   name: "Install composer dependencies"
                 uses: "ramsey/composer-install@v2"
+                env:
+                    SYMFONY_REQUIRE: "${{ matrix.symfony }}"
                 with:
                     dependency-versions: "${{ matrix.dependencies }}"
 
             -   name: "Run phpunit"
                 run: "composer phpunit"
-                
+                    
             -   name: "Run phpspec"
-                run: "composer phpspec"
+                run: "composer phpspec"                    
 
     integration-tests:
-        name: "Integration tests"
+        name: "Integration tests (PHP${{ matrix.php-version }} | Deps: ${{ matrix.dependencies }} | SF${{ matrix.symfony }})"
 
         runs-on: "ubuntu-latest"
 
@@ -178,9 +201,15 @@ jobs:
             matrix:
                 php-version:
                     - "7.4"
+                    - "8.0"
+                    - "8.1"
 
                 dependencies:
                     - "highest"
+
+                symfony:
+                    - "^4.4"
+                    - "^5.4"
 
         steps:
             -   name: "Start MySQL"
@@ -200,7 +229,7 @@ jobs:
             -   name: "Setup node"
                 uses: "actions/setup-node@v2"
                 with:
-                    node-version: "10.x"
+                    node-version: "12.x"
 
             -   name: "Install composer dependencies"
                 uses: "ramsey/composer-install@v2"
@@ -284,7 +313,7 @@ jobs:
         strategy:
             matrix:
                 php-version:
-                    - "7.4"
+                    - "8.1"
 
                 dependencies:
                     - "highest"

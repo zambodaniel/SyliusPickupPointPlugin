@@ -33,8 +33,11 @@
         "webmozart/assert": "^1.10"
     },
     "require-dev": {
-        "fzaninotto/faker": "^1.9",
+        "api-platform/core": "^2.6",
+        "fakerphp/faker": "^1.19",
+        "friendsofsymfony/oauth-server-bundle": ">2.0.0-alpha.0 ^2.0@dev",
         "kriswallsmith/buzz": "^1.1",
+        "lexik/jwt-authentication-bundle": "^2.15",
         "matthiasnoback/symfony-dependency-injection-test": "^4.3",
         "nyholm/psr7": "^1.5",
         "phpspec/phpspec": "^7.2",
@@ -42,16 +45,18 @@
         "phpunit/phpunit": "^9.5",
         "psalm/plugin-phpunit": "^0.16",
         "psalm/plugin-symfony": "^3.0",
-        "setono/code-quality-pack": "^2.1",
+        "roave/security-advisories": "dev-latest",
+        "setono/code-quality-pack": "^2.2",
         "setono/dao-bundle": "^1.1",
-        "setono/gls-webservice-bundle": "^1.0.1",
+        "setono/gls-webservice-bundle": "^1.1",
         "setono/post-nord-bundle": "^1.2",
-        "setono/sylius-behat-pack": "^0.2.0",
-        "sylius/sylius": "~1.7.3",
+        "setono/sylius-behat-pack": "^0.2",
+        "sylius/admin-api-bundle": "^1.11",
+        "sylius/sylius": "~1.10.14",
         "symfony/debug-bundle": "^4.4 || ^5.4",
         "symfony/dotenv": "^4.4 || ^5.4",
         "symfony/web-profiler-bundle": "^4.4 || ^5.4",
-        "weirdan/doctrine-psalm-plugin": "^1.2"
+        "weirdan/doctrine-psalm-plugin": "^2.3"
     },
     "suggest": {
         "setono/dao-bundle": "Install this bundle to use the DAO provider",
