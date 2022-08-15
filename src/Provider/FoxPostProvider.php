@@ -4,18 +4,27 @@ declare(strict_types=1);
 
 namespace Setono\SyliusPickupPointPlugin\Provider;
 
-use GuzzleHttp\Client;
+use Gaufrette\File;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\GuzzleException;
+use League\Flysystem\FileExistsException;
+use League\Flysystem\FileNotFoundException;
 use Setono\SyliusPickupPointPlugin\Exception\TimeoutException;
 use Setono\SyliusPickupPointPlugin\Model\PickupPointCode;
 use Setono\SyliusPickupPointPlugin\Model\PickupPointInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
+use League\Flysystem\FilesystemInterface;
 use Webmozart\Assert\Assert;
 
-final class FoxPostProvider extends Provider
+final class FoxPostProvider extends FileProvider
 {
+
+    public const BASE_DIR = 'pickup_points';
+
+    public const FILENAME = 'apms.json';
+
     private ClientInterface $client;
 
     private FactoryInterface $pickupPointFactory;
@@ -25,24 +34,40 @@ final class FoxPostProvider extends Provider
     private array $data = [];
 
     public function __construct(
+        ClientInterface $client,
         FactoryInterface $pickupPointFactory,
+        FilesystemInterface $filesystem,
         array $countryCodes = ['HU']
     ) {
-        $this->client = new Client();
+        parent::__construct($filesystem);
+        $this->client = $client;
         $this->pickupPointFactory = $pickupPointFactory;
         $this->countryCodes = $countryCodes;
     }
 
+    /**
+     * @throws FileNotFoundException
+     * @throws GuzzleException
+     * @throws FileExistsException
+     */
     private function fetchData(): void
     {
         if (empty($this->data)) {
-            $response = $this->client->request('GET', 'https://cdn.foxpost.hu/apms.json');
-            $data = json_decode((string) $response->getBody(), true);
-            if (false === $data) {
-                throw new TimeoutException();
+            try {
+                $data = json_decode($this->getFile(), true);
+            } catch (FileNotFoundException $exception) {
+                $response = $this->client->request('GET', 'https://cdn.foxpost.hu/apms.json');
+                $data = (string) $response->getBody();
+                $this->storeFile($data);
             }
+
             $this->data = $data;
         }
+    }
+
+    protected function getFileName(): string
+    {
+        return self::FILENAME;
     }
 
     public function findPickupPoints(OrderInterface $order): iterable

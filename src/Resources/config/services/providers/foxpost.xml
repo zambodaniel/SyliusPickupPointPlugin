@@ -6,7 +6,9 @@
     <services>
         <service id="setono_sylius_pickup_point.provider.foxpost"
                  class="Setono\SyliusPickupPointPlugin\Provider\FoxPostProvider">
+            <argument type="service" id="sylius.http_client"/>
             <argument type="service" id="setono_sylius_pickup_point.factory.pickup_point"/>
+            <argument type="service" id="setono_sylius_pickup_point.storage.local"/>
             <tag name="setono_sylius_pickup_point.provider" code="foxpost" label="setono_sylius_pickup_point.provider.foxpost"/>
         </service>
     </services>

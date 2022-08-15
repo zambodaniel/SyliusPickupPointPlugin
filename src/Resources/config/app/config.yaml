@@ -9,3 +9,10 @@ jms_serializer:
             setono-sylius-pickup-point:
                 namespace_prefix: "Setono\\SyliusPickupPointPlugin\\Model"
                 path: "@SetonoSyliusPickupPointPlugin/Resources/config/serializer"
+
+flysystem:
+    storages:
+        setono_sylius_pickup_point.storage.local:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/var/storage/setono_sylius_pickup_point/data'
