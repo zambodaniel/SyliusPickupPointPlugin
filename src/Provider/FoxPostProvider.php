@@ -21,8 +21,6 @@ use Webmozart\Assert\Assert;
 final class FoxPostProvider extends FileProvider
 {
 
-    public const BASE_DIR = 'pickup_points';
-
     public const FILENAME = 'apms.json';
 
     private ClientInterface $client;
@@ -79,6 +77,9 @@ final class FoxPostProvider extends FileProvider
 
         $street = $shippingAddress->getStreet();
         $postCode = $shippingAddress->getPostcode();
+        $postCodeShort = substr($postCode, 0, 3);
+        $isBp = substr($postCode, 0, 1) === '1';
+        $city = $shippingAddress->getCity();
         $countryCode = $shippingAddress->getCountryCode();
         if (!in_array($countryCode, $this->countryCodes) || null === $street || null === $postCode || null === $countryCode) {
             return [];
@@ -88,7 +89,13 @@ final class FoxPostProvider extends FileProvider
             $this->fetchData();
             $parcelShops = [];
             foreach ($this->data as $point) {
-                if ($point['zip'] === $postCode) {
+                if ($isBp) {
+                    if (substr($point['zip'], 0, 3) === $postCodeShort) {
+                        $parcelShops[] = $point;
+                    }
+                } elseif ($point['zip'] === $postCode) {
+                    $parcelShops[] = $point;
+                } elseif (strtolower($point['city']) === strtolower($city)) {
                     $parcelShops[] = $point;
                 }
             }
