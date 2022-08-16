@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://symfony.com/schema/dic/services"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="setono_sylius_pickup_point.provider.mpl_point"
+                 class="Setono\SyliusPickupPointPlugin\Provider\MplPointProvider">
+            <argument type="service" id="sylius.http_client"/>
+            <argument type="service" id="setono_sylius_pickup_point.factory.pickup_point"/>
+            <argument type="service" id="setono_sylius_pickup_point.storage.local"/>
+            <tag name="setono_sylius_pickup_point.provider" code="mpl_point" label="setono_sylius_pickup_point.provider.mpl_point"/>
+        </service>
+    </services>
+</container>

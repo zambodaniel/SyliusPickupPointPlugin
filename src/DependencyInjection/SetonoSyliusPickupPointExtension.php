@@ -77,5 +77,13 @@ final class SetonoSyliusPickupPointExtension extends AbstractResourceExtension
         if ($config['providers']['foxpost']) {
             $loader->load('services/providers/foxpost.xml');
         }
+
+        if ($config['providers']['mpl_point']) {
+            $loader->load('services/providers/mpl_point.xml');
+        }
+
+        if ($config['providers']['mpl_post']) {
+            $loader->load('services/providers/mpl_post.xml');
+        }
     }
 }
