@@ -7,8 +7,15 @@ let pickupPoints = {
   shippingMethods: document.querySelectorAll('input.input-shipping-method'),
   pickupPointChoices: {},
   lastChosenPickupPointId: null,
+  pickupPointLabel: document.querySelectorAll('label.setono-sylius-pickup-point-label'),
   init: function (args) {
     this.searchUrl = args.searchUrl;
+
+    if (this.pickupPointLabel.length > 0) {
+      this.pickupPointLabel.forEach((element) => {
+        this.showLabel(element);
+      });
+    }
 
     if (0 === this.pickupPointShippingMethods.length) {
       return;
@@ -99,5 +106,22 @@ let pickupPoints = {
     });
 
     return content;
+  },
+  showLabel: function (element) {
+    const url = element.getAttribute('data-url');
+    if (url === null) {
+      return;
+    }
+    const xhttp = new XMLHttpRequest();
+    // eslint-disable-next-line func-names
+    xhttp.onreadystatechange = function () {
+      if (xhttp.readyState === 4 && xhttp.status === 200) {
+        const result = JSON.parse(xhttp.response);
+        element.innerHTML += `<i>${result.full_address}</i>`;
+        element.style.display = element.style.display === 'none' ? 'block' : 'none';
+      }
+    };
+    xhttp.open('GET', url, false);
+    xhttp.send();
   },
 };
