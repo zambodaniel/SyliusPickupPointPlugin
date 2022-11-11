@@ -36,6 +36,14 @@ final class AddIndicesSubscriber implements EventSubscriber
                     ],
                 ],
             ],
+            'indexes' => [
+                'updated_at_idx' => [
+                    'columns' => [
+                        'code_provider',
+                        'updated_at'
+                    ],
+                ],
+            ],
         ];
 
         $metadata->table = array_merge_recursive($tableConfig, $metadata->table);
