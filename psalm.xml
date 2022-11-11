@@ -1,13 +1,14 @@
 <?xml version="1.0"?>
 <psalm
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    errorLevel="5"
+    errorLevel="1"
     xmlns="https://getpsalm.org/schema/config"
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    errorBaseline="psalm-baseline.xml"
 >
     <projectFiles>
         <directory name="src"/>
-        <!--<directory name="tests"/> todo readd this-->
+        <directory name="tests"/>
         <ignoreFiles>
             <directory name="tests/Application"/>
             <directory name="vendor"/>
@@ -28,4 +29,7 @@
         <function name="dd"/>
         <function name="dump"/>
     </forbiddenFunctions>
+    <issueHandlers>
+        <UnnecessaryVarAnnotation errorLevel="suppress"/>
+    </issueHandlers>
 </psalm>

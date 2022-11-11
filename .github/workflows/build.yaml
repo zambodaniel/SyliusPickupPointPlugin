@@ -24,7 +24,7 @@ jobs:
         strategy:
             matrix:
                 php-version:
-                    - "8.1"
+                    - "7.4"
 
                 dependencies:
                     - "highest"
@@ -76,7 +76,6 @@ jobs:
                     - "highest"
 
                 symfony:
-                    - "^4.4"
                     - "^5.4"
 
         steps:
@@ -120,7 +119,6 @@ jobs:
                     - "highest"
 
                 symfony:
-                    - "^4.4"
                     - "^5.4"
 
         steps:
@@ -164,7 +162,6 @@ jobs:
                     - "highest"
 
                 symfony:
-                    - "^4.4"
                     - "^5.4"
 
         steps:
@@ -208,7 +205,6 @@ jobs:
                     - "highest"
 
                 symfony:
-                    - "^4.4"
                     - "^5.4"
 
         steps:
