@@ -27,6 +27,8 @@ class PickupPoint implements PickupPointInterface
 
     protected ?float $longitude = null;
 
+    protected ?\DateTimeInterface $updatedAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -124,5 +126,15 @@ class PickupPoint implements PickupPointInterface
             $this->getZipCode(),
             $this->getCity()
         );
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
     }
 }

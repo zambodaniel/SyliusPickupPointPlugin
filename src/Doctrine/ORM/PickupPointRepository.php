@@ -58,4 +58,18 @@ class PickupPointRepository extends EntityRepository implements PickupPointRepos
             ->getResult()
         ;
     }
+
+    public function deleteOlderThan(\DateTimeInterface $dateTime, string $provider): void
+    {
+        $this->createQueryBuilder('o')
+            ->andWhere('o.code.provider = :provider')
+            ->andWhere('o.updated_at < :dateTime')
+            ->setParameters([
+                'dateTime' => $dateTime,
+                'provider' => $provider,
+            ])
+            ->delete()
+            ->getQuery()
+            ->execute();
+    }
 }

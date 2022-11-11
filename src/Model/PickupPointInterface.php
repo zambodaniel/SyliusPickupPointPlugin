@@ -50,4 +50,8 @@ interface PickupPointInterface extends ResourceInterface
     public function setLongitude(?float $longitude): void;
 
     public function getFullAddress(): string;
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): void;
+
+    public function getUpdatedAt(): ?\DateTimeInterface;
 }

@@ -10,4 +10,9 @@ abstract class Provider implements ProviderInterface
     {
         return $this->getCode();
     }
+
+    public function cleanupOnLoadPickupPoints(): bool
+    {
+        return false;
+    }
 }
