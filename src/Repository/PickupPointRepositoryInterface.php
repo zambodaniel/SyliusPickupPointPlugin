@@ -17,4 +17,6 @@ interface PickupPointRepositoryInterface extends RepositoryInterface
      * @psalm-return list<PickupPointInterface>
      */
     public function findByOrder(OrderInterface $order, string $provider): array;
+
+    public function deleteOlderThan(\DateTimeInterface $dateTime, string $provider): void;
 }

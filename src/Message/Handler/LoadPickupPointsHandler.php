@@ -39,6 +39,8 @@ final class LoadPickupPointsHandler implements MessageHandlerInterface
 
         $i = 1;
 
+        $timestamp = new \DateTimeImmutable();
+
         foreach ($pickupPoints as $pickupPoint) {
             $pickupPointCode = $pickupPoint->getCode();
             Assert::notNull($pickupPointCode);
@@ -56,6 +58,7 @@ final class LoadPickupPointsHandler implements MessageHandlerInterface
                 $localPickupPoint->setCountry($pickupPoint->getCountry());
                 $localPickupPoint->setLatitude($pickupPoint->getLatitude());
                 $localPickupPoint->setLongitude($pickupPoint->getLongitude());
+                $localPickupPoint->setUpdatedAt($timestamp);
             }
 
             if ($i % 50 === 0) {
@@ -64,8 +67,11 @@ final class LoadPickupPointsHandler implements MessageHandlerInterface
 
             ++$i;
         }
-
+        if ($provider->cleanupOnLoadPickupPoints()) {
+            $this->pickupPointRepository->deleteOlderThan($timestamp, $provider->getCode());
+        }
         $this->flush();
+
     }
 
     private function flush(): void
