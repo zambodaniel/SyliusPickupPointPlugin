@@ -93,6 +93,11 @@ final class CachedProvider extends Provider
         return $this->provider->getName();
     }
 
+    public function cleanupOnLoadPickupPoints(): bool
+    {
+        return $this->provider->cleanupOnLoadPickupPoints();
+    }
+
     private function buildOrderCacheKey(OrderInterface $order): string
     {
         $shippingAddress = $order->getShippingAddress();

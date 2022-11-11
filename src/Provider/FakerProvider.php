@@ -82,6 +82,7 @@ final class FakerProvider extends Provider
         $pickupPoint->setCountry($countryCode);
         $pickupPoint->setLatitude($this->faker->latitude);
         $pickupPoint->setLongitude($this->faker->longitude);
+        $pickupPoint->setUpdatedAt(new \DateTime());
 
         return $pickupPoint;
     }

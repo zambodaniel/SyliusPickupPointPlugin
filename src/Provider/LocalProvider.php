@@ -54,4 +54,9 @@ final class LocalProvider extends Provider
     {
         return $this->decoratedProvider->getName();
     }
+
+    public function cleanupOnLoadPickupPoints(): bool
+    {
+        return $this->decoratedProvider->cleanupOnLoadPickupPoints();
+    }
 }
