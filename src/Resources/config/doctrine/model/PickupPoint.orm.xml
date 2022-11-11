@@ -15,5 +15,6 @@
         <field name="country" column="country" type="string"/>
         <field name="latitude" nullable="true" type="decimal" precision="10" scale="8"/>
         <field name="longitude" nullable="true" type="decimal" precision="11" scale="8"/>
+        <field name="updatedAt" nullable="true" type="datetime"/>
     </mapped-superclass>
 </doctrine-mapping>

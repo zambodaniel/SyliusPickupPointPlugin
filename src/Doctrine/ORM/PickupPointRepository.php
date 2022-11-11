@@ -63,7 +63,7 @@ class PickupPointRepository extends EntityRepository implements PickupPointRepos
     {
         $this->createQueryBuilder('o')
             ->andWhere('o.code.provider = :provider')
-            ->andWhere('o.updated_at < :dateTime')
+            ->andWhere('o.updatedAt < :dateTime')
             ->setParameters([
                 'dateTime' => $dateTime,
                 'provider' => $provider,
