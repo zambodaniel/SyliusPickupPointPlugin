@@ -40,7 +40,7 @@ final class AddIndicesSubscriber implements EventSubscriber
                 'updated_at_idx' => [
                     'columns' => [
                         'code_provider',
-                        'updated_at'
+                        'updatedAt'
                     ],
                 ],
             ],
