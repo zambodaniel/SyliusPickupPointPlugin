@@ -211,6 +211,7 @@ sylius_shipping:
 
 Note that:
 - `faker` provider will not work on prod environment
+- `coolrunner` provider require `setono/coolrunner-bundle` to be installed
 - `gls` provider require `setono/gls-webservice-bundle` to be installed
 - `dao` provider require `setono/dao-bundle` to be installed
 - `post_nord` provider require `setono/post-nord-bundle` to be installed
@@ -220,6 +221,7 @@ Note that:
 setono_sylius_pickup_point:
     providers:
         faker: true
+        coolrunner: true
         gls: true
         post_nord: true
         dao: true
