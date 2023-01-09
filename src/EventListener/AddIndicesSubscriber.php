@@ -38,6 +38,7 @@ final class AddIndicesSubscriber implements EventSubscriber
             ],
         ];
 
+        /** @psalm-suppress InvalidPropertyAssignmentValue */
         $metadata->table = array_merge_recursive($tableConfig, $metadata->table);
     }
 }

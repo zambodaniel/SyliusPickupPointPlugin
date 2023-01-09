@@ -9,6 +9,7 @@ use Setono\SyliusPickupPointPlugin\Model\PickupPointInterface;
 use Setono\SyliusPickupPointPlugin\Repository\PickupPointRepositoryInterface;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\Component\Core\Model\OrderInterface;
+use Webmozart\Assert\Assert;
 
 class PickupPointRepository extends EntityRepository implements PickupPointRepositoryInterface
 {
@@ -45,7 +46,7 @@ class PickupPointRepository extends EntityRepository implements PickupPointRepos
             return [];
         }
 
-        return $this->createQueryBuilder('o')
+        $objs = $this->createQueryBuilder('o')
             ->andWhere('o.code.provider = :provider')
             ->andWhere('o.code.country = :country')
             ->andWhere('o.zipCode = :postalCode')
@@ -55,7 +56,11 @@ class PickupPointRepository extends EntityRepository implements PickupPointRepos
                 'postalCode' => $postalCode,
             ])
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
+
+        Assert::allIsInstanceOf($objs, PickupPointInterface::class);
+        Assert::isList($objs);
+
+        return $objs;
     }
 }
