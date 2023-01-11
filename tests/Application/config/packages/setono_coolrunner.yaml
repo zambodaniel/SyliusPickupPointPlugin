@@ -1,0 +1,3 @@
+setono_coolrunner:
+    username: '%env(COOLRUNNER_USERNAME)%'
+    token: '%env(COOLRUNNER_TOKEN)%'

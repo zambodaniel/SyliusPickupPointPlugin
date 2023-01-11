@@ -65,5 +65,6 @@ return [
     Setono\GlsWebserviceBundle\SetonoGlsWebserviceBundle::class => ['all' => true],
     Setono\PostNordBundle\SetonoPostNordBundle::class => ['all' => true],
     Setono\DAOBundle\SetonoDAOBundle::class => ['all' => true],
+    Setono\CoolRunnerBundle\SetonoCoolRunnerBundle::class => ['all' => true],
     Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
 ];

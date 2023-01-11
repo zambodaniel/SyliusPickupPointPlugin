@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Setono\SyliusPickupPointPlugin\DependencyInjection;
 
+use Setono\CoolRunnerBundle\SetonoCoolRunnerBundle;
 use Setono\DAOBundle\SetonoDAOBundle;
 use Setono\GlsWebserviceBundle\SetonoGlsWebserviceBundle;
 use Setono\PostNordBundle\SetonoPostNordBundle;
@@ -43,7 +44,6 @@ final class Configuration implements ConfigurationInterface
                 ->booleanNode('local')
                     ->defaultValue(true)
                     ->info('Whether to use the local database when timeouts occur in third party HTTP calls. Remember to run the setono-sylius-pickup-point:load-pickup-points command periodically to populate the local database with pickup points')
-                    ->example(true)
                 ->end()
                 ->arrayNode('providers')
                     ->addDefaultsIfNotSet()
@@ -52,25 +52,22 @@ final class Configuration implements ConfigurationInterface
                             ->info('Whether to enable the Faker provider')
                             ->defaultValue(false)
                         ->end()
+                        ->booleanNode('coolrunner')
+                            ->info('Whether to enable the CoolRunner provider')
+                            ->defaultValue(class_exists(SetonoCoolRunnerBundle::class))
+                        ->end()
                         ->booleanNode('dao')
-                            ->example(true)
                             ->info('Whether to enable the DAO provider')
                             ->defaultValue(class_exists(SetonoDAOBundle::class))
                         ->end()
                         ->booleanNode('gls')
-                            ->example(true)
                             ->info('Whether to enable the GLS provider')
                             ->defaultValue(class_exists(SetonoGlsWebserviceBundle::class))
                         ->end()
                         ->booleanNode('post_nord')
-                            ->example(true)
                             ->info('Whether to enable the PostNord provider')
                             ->defaultValue(class_exists(SetonoPostNordBundle::class))
-                        ->end()
-                    ->end()
-                ->end()
-            ->end()
-        ;
+            ;
 
         $this->addResourcesSection($rootNode);
 
@@ -96,7 +93,6 @@ final class Configuration implements ConfigurationInterface
                                         ->scalarNode('controller')->defaultValue(ResourceController::class)->cannotBeEmpty()->end()
                                         ->scalarNode('repository')->defaultValue(PickupPointRepository::class)->cannotBeEmpty()->end()
                                         ->scalarNode('form')->defaultValue(DefaultResourceType::class)->end()
-                                        ->scalarNode('factory')->defaultValue(Factory::class)->end()
-        ;
+                                        ->scalarNode('factory')->defaultValue(Factory::class)->end();
     }
 }

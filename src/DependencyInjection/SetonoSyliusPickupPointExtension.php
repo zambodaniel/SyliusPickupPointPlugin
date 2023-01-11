@@ -51,6 +51,14 @@ final class SetonoSyliusPickupPointExtension extends AbstractResourceExtension
             $loader->load('services/providers/faker.xml');
         }
 
+        if ($config['providers']['coolrunner']) {
+            if (!isset($bundles['SetonoCoolRunnerBundle'])) {
+                throw new LogicException('You should use SetonoCoolRunnerBundle or disable coolrunner provider.');
+            }
+
+            $loader->load('services/providers/coolrunner.xml');
+        }
+
         if ($config['providers']['dao']) {
             if (!isset($bundles['SetonoDAOBundle'])) {
                 throw new LogicException('You should use SetonoDAOBundle or disable dao provider.');
