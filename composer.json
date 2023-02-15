@@ -46,9 +46,10 @@
         "psalm/plugin-phpunit": "^0.18",
         "psalm/plugin-symfony": "^5.0",
         "roave/security-advisories": "dev-latest",
-        "setono/code-quality-pack": "^2.3",
-        "setono/coolrunner-bundle": "dev-master",
-        "setono/coolrunner-php-sdk": "dev-master",
+        "setono/budbee-bundle": "dev-master",
+        "setono/budbee-php-sdk": "dev-master",
+        "setono/code-quality-pack": "^2.4",
+        "setono/coolrunner-bundle": "^1.0",
         "setono/dao-bundle": "^1.1",
         "setono/gls-webservice-bundle": "^1.3",
         "setono/post-nord-bundle": "^1.2",
@@ -87,7 +88,8 @@
         "allow-plugins": {
             "ergebnis/composer-normalize": true,
             "symfony/thanks": false,
-            "dealerdirect/phpcodesniffer-composer-installer": false
+            "dealerdirect/phpcodesniffer-composer-installer": false,
+            "php-http/discovery": true
         },
         "sort-packages": true
     },

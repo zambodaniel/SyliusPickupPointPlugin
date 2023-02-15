@@ -211,6 +211,7 @@ sylius_shipping:
 
 Note that:
 - `faker` provider will not work on prod environment
+- `budbee` provider require `setono/budbee-bundle` to be installed
 - `coolrunner` provider require `setono/coolrunner-bundle` to be installed
 - `gls` provider require `setono/gls-webservice-bundle` to be installed
 - `dao` provider require `setono/dao-bundle` to be installed
@@ -221,6 +222,7 @@ Note that:
 setono_sylius_pickup_point:
     providers:
         faker: true
+        budbee: true
         coolrunner: true
         gls: true
         post_nord: true

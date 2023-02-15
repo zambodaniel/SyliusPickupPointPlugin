@@ -51,6 +51,14 @@ final class SetonoSyliusPickupPointExtension extends AbstractResourceExtension
             $loader->load('services/providers/faker.xml');
         }
 
+        if ($config['providers']['budbee']) {
+            if (!isset($bundles['SetonoBudbeeBundle'])) {
+                throw new LogicException('You should use SetonoBudbeeBundle or disable budbee provider.');
+            }
+
+            $loader->load('services/providers/budbee.xml');
+        }
+
         if ($config['providers']['coolrunner']) {
             if (!isset($bundles['SetonoCoolRunnerBundle'])) {
                 throw new LogicException('You should use SetonoCoolRunnerBundle or disable coolrunner provider.');
