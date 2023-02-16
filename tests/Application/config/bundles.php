@@ -66,5 +66,6 @@ return [
     Setono\PostNordBundle\SetonoPostNordBundle::class => ['all' => true],
     Setono\DAOBundle\SetonoDAOBundle::class => ['all' => true],
     Setono\CoolRunnerBundle\SetonoCoolRunnerBundle::class => ['all' => true],
+    Setono\BudbeeBundle\SetonoBudbeeBundle::class => ['all' => true],
     Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
 ];
