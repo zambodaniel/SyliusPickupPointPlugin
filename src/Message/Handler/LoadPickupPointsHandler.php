@@ -67,10 +67,11 @@ final class LoadPickupPointsHandler implements MessageHandlerInterface
 
             ++$i;
         }
+        $this->flush();
         if ($provider->cleanupOnLoadPickupPoints()) {
             $this->pickupPointRepository->deleteOlderThan($timestamp, $provider->getCode());
+            $this->flush();
         }
-        $this->flush();
 
     }
 
