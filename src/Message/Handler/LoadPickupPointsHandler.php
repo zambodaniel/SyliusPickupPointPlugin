@@ -49,6 +49,7 @@ final class LoadPickupPointsHandler implements MessageHandlerInterface
 
             // if it's found, we will update the properties, else we will just persist this object
             if (null === $localPickupPoint) {
+                $pickupPoint->setUpdatedAt($timestamp);
                 $this->pickupPointManager->persist($pickupPoint);
             } else {
                 $localPickupPoint->setName($pickupPoint->getName());
